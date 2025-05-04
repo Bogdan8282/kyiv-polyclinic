@@ -1,0 +1,233 @@
+@import "tailwindcss";
+
+@layer base {
+  html,
+  body,
+  div,
+  span,
+  applet,
+  object,
+  iframe,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  blockquote,
+  pre,
+  a,
+  abbr,
+  acronym,
+  address,
+  big,
+  cite,
+  code,
+  del,
+  dfn,
+  em,
+  img,
+  ins,
+  kbd,
+  q,
+  s,
+  samp,
+  small,
+  strike,
+  strong,
+  sub,
+  sup,
+  tt,
+  var,
+  b,
+  u,
+  i,
+  center,
+  dl,
+  dt,
+  dd,
+  ol,
+  ul,
+  li,
+  fieldset,
+  form,
+  label,
+  legend,
+  table,
+  caption,
+  tbody,
+  tfoot,
+  thead,
+  tr,
+  th,
+  td,
+  article,
+  aside,
+  canvas,
+  details,
+  embed,
+  figure,
+  figcaption,
+  footer,
+  header,
+  hgroup,
+  menu,
+  nav,
+  output,
+  ruby,
+  section,
+  summary,
+  time,
+  mark,
+  audio,
+  video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    user-select: none; /* Prevents dragging the image */
+  }
+
+  ul,
+  li {
+    padding: 0;
+    list-style: none;
+  }
+
+  button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font: inherit;
+    color: inherit;
+  }
+
+  input,
+  textarea,
+  select {
+    font: inherit;
+    color: inherit;
+    background: none;
+    border: none;
+    outline: none;
+    border-radius: var(--radius-sm);
+    outline: solid 2px var(--color-gray-300);
+    align-self: flex-start;
+    padding: 0.125rem 0.25rem;
+  }
+
+  textarea {
+    resize: vertical;
+  }
+
+  input:focus,
+  textarea:focus, select:focus {
+    outline: solid 2px var(--main);
+  }
+
+  strong {
+    font-weight: 600;
+  }
+
+  :root {
+    font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+    color: var(--black);
+    background-color: #fff;
+
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    --main: #2c75b3;
+    --accent: #1a4971;
+    --black: #0c0c0c;
+  }
+
+  html {
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: inherit;
+    -webkit-tap-highlight-color: transparent; /* Removes the blue highlight on mobile when you click the button or image */
+  }
+
+  *:focus-visible {
+    outline: 2px solid var(--main); /* Adjust to match the theme */
+    outline-offset: 2px;
+  }
+
+  body {
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.2;
+    min-height: 100vh;
+  }
+
+  h1 {
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  h2 {
+    font-size: 30px;
+    font-weight: 600;
+  }
+
+  h3 {
+    font-size: 26px;
+    font-weight: 600;
+  }
+
+  h4 {
+    font-size: 22px;
+    font-weight: 600;
+  }
+
+  h5 {
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  .wrapper {
+    max-width: 1440px;
+    padding: 0 2vw;
+    margin: 120px auto 60px auto;
+  }
+
+  .btn, .btn-link {
+    cursor: pointer;
+    color: #fff;
+    background: var(--main);
+    align-self: flex-start;
+    padding: 0.5rem 0.75rem;
+    border-radius: 8px;
+    font-size: 1rem;
+  }
+
+  .btn:hover, .btn-link:hover {
+    opacity: 0.9;
+  }
+
+  /* @media (prefers-color-scheme: dark) {} */
+
+  /* @media only screen and (max-width: 1200px) {} */
+}
