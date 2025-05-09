@@ -15,13 +15,18 @@ router.get("/", authMiddleware, async (req, res, next) => {
 
 router.post("/", authMiddleware, checkRole("admin"), async (req, res, next) => {
   try {
-    const { doctor, dayOfWeek, startTime, endTime } = req.body;
-    if (!doctor || !dayOfWeek || !startTime || !endTime) {
-      const error = new Error("All schedule fields are required");
+    const { doctor, dayOfWeek } = req.body;
+
+    if (!doctor || !dayOfWeek) {
+      const error = new Error("Doctor and dayOfWeek are required");
       error.status = 400;
       throw error;
     }
-    const schedule = new Schedule(req.body);
+
+    const startTime = req.body.startTime || "09:00";
+    const endTime = req.body.endTime || "17:00";
+
+    const schedule = new Schedule({ doctor, dayOfWeek, startTime, endTime });
     await schedule.save();
     res.status(201).json(schedule);
   } catch (err) {

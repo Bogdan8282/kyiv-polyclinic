@@ -21,7 +21,6 @@ function SchedulesPage() {
   const [endTime, setEndTime] = useState("");
   const [error, setError] = useState("");
 
-
   useEffect(() => {
     fetchSchedules();
     fetchDoctors();
@@ -81,9 +80,9 @@ function SchedulesPage() {
   return (
     <div className="wrapper flex flex-col gap-4">
       <h2>Графіки</h2>
-      <div className="btn-link">
-        <Link to="/admin">Назад</Link>
-      </div>
+      <Link to="/admin" className="btn-link">
+        Назад
+      </Link>
       {error && <div style={{ color: "red" }}>{error}</div>}
       <select value={doctorId} onChange={(e) => setDoctorId(e.target.value)}>
         <option value="">Вибрати доктора</option>
@@ -111,13 +110,15 @@ function SchedulesPage() {
         onChange={(e) => setEndTime(e.target.value)}
         placeholder="End time (17:00)"
       />
-      <button className="btn" onClick={handleAdd}>Додати</button>
+      <button className="btn" onClick={handleAdd}>
+        Додати
+      </button>
       <ul className="flex flex-col gap-2">
         {sortedSchedules.map((s) => (
           <li key={s._id}>
             {s.doctor?.name} - {s.dayOfWeek} ({s.startTime} - {s.endTime})
             <button
-            className="btn"
+              className="btn"
               onClick={() => handleDelete(s._id)}
               style={{ marginLeft: "10px" }}
             >

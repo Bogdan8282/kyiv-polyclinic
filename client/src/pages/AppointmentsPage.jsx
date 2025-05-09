@@ -6,14 +6,29 @@ function AppointmentsPage() {
   const [schedules, setSchedules] = useState([]);
   const [appointments, setAppointments] = useState([]);
   const [doctorId, setDoctorId] = useState("");
+  const [specializations, setSpecializations] = useState([]);
+  const [selectedSpecialization, setSelectedSpecialization] = useState("");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
 
   useEffect(() => {
+    fetchSpecializations();
     fetchDoctors();
     fetchSchedules();
     fetchAppointments();
   }, []);
+
+  const fetchSpecializations = async () => {
+    try {
+      const res = await api.get("/specializations");
+      setSpecializations(res.data);
+    } catch (err) {
+      console.error(
+        "Error fetching specializations:",
+        err.response?.data?.message
+      );
+    }
+  };
 
   const fetchDoctors = async () => {
     try {
@@ -61,17 +76,6 @@ function AppointmentsPage() {
     ];
     const selectedDayName = dayNames[selectedDay];
 
-    console.log("Schedules:", schedules);
-    console.log("Selected doctor:", doctorId);
-    console.log(
-      "Selected date:",
-      date,
-      "Selected day:",
-      selectedDay,
-      "Selected day name:",
-      selectedDayName
-    );
-
     const doctorSchedules = schedules.filter(
       (s) =>
         (s.doctor === doctorId ||
@@ -106,6 +110,12 @@ function AppointmentsPage() {
 
     return availableTimes;
   };
+  const filteredDoctors = doctors.filter(
+    (d) =>
+      selectedSpecialization === "" ||
+      d.specialization === selectedSpecialization ||
+      d.specialization?._id === selectedSpecialization
+  );
 
   const toMinutes = (timeStr) => {
     const [hours, minutes] = timeStr.split(":").map(Number);
@@ -128,6 +138,7 @@ function AppointmentsPage() {
       setDate("");
       setTime("");
       fetchAppointments();
+      setSelectedSpecialization("");
     } catch (error) {
       alert(error.response?.data?.message || "Error booking appointment");
     }
@@ -146,18 +157,40 @@ function AppointmentsPage() {
     <div className="wrapper">
       <div className="flex flex-col gap-4 mb-8">
         <h2>Записатись до лікаря</h2>
-        <select value={doctorId} onChange={(e) => setDoctorId(e.target.value)}>
+        <select
+          value={selectedSpecialization}
+          onChange={(e) => setSelectedSpecialization(e.target.value)}
+        >
+          <option value="">Вибрати спеціалізацію</option>
+          {specializations.map((spec) => (
+            <option key={spec._id} value={spec._id}>
+              {spec.name}
+            </option>
+          ))}
+        </select>
+        <select
+          value={doctorId}
+          onChange={(e) => setDoctorId(e.target.value)}
+          disabled={!selectedSpecialization}
+        >
           <option value="">Вибрати лікаря</option>
-          {doctors.map((d) => (
+          {filteredDoctors.map((d) => (
             <option key={d._id} value={d._id}>
               {d.name}
             </option>
           ))}
         </select>
+
         <input
           type="date"
           value={date}
           onChange={(e) => setDate(e.target.value)}
+          min={new Date().toISOString().split("T")[0]}
+          max={(() => {
+            const d = new Date();
+            d.setMonth(d.getMonth() + 1);
+            return d.toISOString().split("T")[0];
+          })()}
         />
 
         <select value={time} onChange={(e) => setTime(e.target.value)}>
@@ -188,7 +221,9 @@ function AppointmentsPage() {
               <span>
                 {app.date} - {app.time}
               </span>
-              <button className="btn" onClick={() => handleCancel(app._id)}>Відмінити</button>
+              <button className="btn" onClick={() => handleCancel(app._id)}>
+                Відмінити
+              </button>
             </li>
           ))}
         </ul>

@@ -58,9 +58,9 @@ function DoctorsPage() {
   return (
     <div className="wrapper flex flex-col gap-4">
       <h2>Доктори</h2>
-      <div className="btn-link">
-        <Link to="/admin">Назад</Link>
-      </div>
+      <Link to="/admin" className="btn-link">
+        Назад
+      </Link>
       {error && <div style={{ color: "red" }}>{error}</div>}
       <input
         value={name}
@@ -78,12 +78,16 @@ function DoctorsPage() {
           </option>
         ))}
       </select>
-      <button className="btn" onClick={handleAdd}>Додати</button>
+      <button className="btn" onClick={handleAdd}>
+        Додати
+      </button>
       <ul className="flex flex-col gap-2">
         {doctors.map((d) => (
           <li key={d._id}>
             {d.name} ({d.specialization?.name}){" "}
-            <button className="btn" onClick={() => handleDelete(d._id)}>Видалити</button>
+            <button className="btn" onClick={() => handleDelete(d._id)}>
+              Видалити
+            </button>
           </li>
         ))}
       </ul>

@@ -5,6 +5,9 @@ const AdminPanel = () => {
   return (
     <div className="flex flex-col wrapper gap-6">
       <h2>Панель адміністратора</h2>
+      <Link className="btn-link" to="/admin/users">
+        Користувачі
+      </Link>
       <Link className="btn-link" to="/admin/appoinments">
         Записи
       </Link>

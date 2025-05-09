@@ -11,7 +11,6 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-// Create
 router.post("/", async (req, res, next) => {
   try {
     if (!req.body.name) {
@@ -27,7 +26,6 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-// Update
 router.put("/:id", async (req, res, next) => {
   try {
     const specialization = await Specialization.findByIdAndUpdate(
@@ -46,7 +44,6 @@ router.put("/:id", async (req, res, next) => {
   }
 });
 
-// Delete
 router.delete("/:id", async (req, res, next) => {
   try {
     const specialization = await Specialization.findByIdAndDelete(

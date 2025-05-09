@@ -23,9 +23,18 @@ export default function Register() {
       return "Введіть правильний номер телефону.";
     }
     if (!form.birthDate) return "Введіть дату народження.";
-    const age =
-      new Date().getFullYear() - new Date(form.birthDate).getFullYear();
-    if (age < 14) return "Вам має бути щонайменше 14 років.";
+
+    const birthDate = new Date(form.birthDate);
+    const today = new Date();
+    if (birthDate > today) return "Дата народження не може бути в майбутньому.";
+
+    const age = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+    const dayDiff = today.getDate() - birthDate.getDate();
+    const isBeforeBirthday = monthDiff < 0 || (monthDiff === 0 && dayDiff < 0);
+    const realAge = isBeforeBirthday ? age - 1 : age;
+
+    if (realAge < 14) return "Вам має бути щонайменше 14 років.";
     if (form.password.length < 6)
       return "Пароль має містити щонайменше 6 символів.";
     return null;
@@ -47,8 +56,8 @@ export default function Register() {
   };
 
   return (
-    <div className="wrapper">
-      <form onSubmit={handleSubmit}>
+    <div className="wrapper flex flex-col gap-6">
+      <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
         <input
           name="fullName"
           placeholder="ПІБ"
@@ -80,14 +89,14 @@ export default function Register() {
           value={form.password}
           onChange={handleChange}
         />
-        <button type="submit">Зареєструватись</button>
+        <button className="btn" type="submit">Зареєструватись</button>
         {error && <p style={{ color: "red" }}>{error}</p>}
       </form>
-      <div>
+      <div className="flex gap-4 items-center">
         <p>Вже маєте акаунт?</p>
-        <div className="btn-link">
-          <Link to="/login">Увійти</Link>
-        </div>
+        <Link className="btn-link" to="/login">
+          Увійти
+        </Link>
       </div>
     </div>
   );

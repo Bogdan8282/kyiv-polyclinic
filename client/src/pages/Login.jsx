@@ -27,8 +27,8 @@ export default function Login() {
   };
 
   return (
-    <div className="wrapper">
-      <form onSubmit={handleSubmit}>
+    <div className="wrapper flex flex-col gap-6">
+      <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
         <input
           placeholder="ПІБ або телефон"
           value={identifier}
@@ -40,10 +40,10 @@ export default function Login() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="submit">Увійти</button>
+        <button className="btn" type="submit">Увійти</button>
         {error && <p style={{ color: "red" }}>{error}</p>}
       </form>
-      <div>
+      <div className="flex gap-4 items-center">
         <p>Немає акаунту?</p>
         <div className="btn-link">
           <Link to="/register">Зареєструватись</Link>

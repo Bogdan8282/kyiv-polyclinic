@@ -10,6 +10,7 @@ import ManageAppoinments from "./pages/ManageAppoinments";
 import SpecializationsPage from "./pages/ManageSpecializations";
 import DoctorsPage from "./pages/ManageDoctors";
 import SchedulesPage from "./pages/ManageSchedules";
+import UsersList from "./pages/UsersList";
 import ProtectedRoute from "./components/ProtectedRoute";
 import NotFound from "./pages/NotFound";
 
@@ -74,6 +75,14 @@ function App() {
           element={
             <ProtectedRoute requiredRole="admin">
               <SchedulesPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/users"
+          element={
+            <ProtectedRoute requiredRole="admin">
+              <UsersList />
             </ProtectedRoute>
           }
         />

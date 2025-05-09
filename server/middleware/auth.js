@@ -14,7 +14,7 @@ export default async function (req, res, next) {
       return res.status(401).json({ error: "Користувача не знайдено" });
     req.user = user;
     next();
-  } catch {
+  } catch (err) {
     console.error(err);
     res.status(401).json({ error: "Невірний токен" });
   }

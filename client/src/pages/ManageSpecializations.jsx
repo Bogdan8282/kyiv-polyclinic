@@ -43,14 +43,14 @@ function SpecializationsPage() {
   return (
     <div className="wrapper flex flex-col gap-4">
       <h2>Керувати Спеціалізаціями</h2>
-      <div className="btn-link">
-        <Link to="/admin">Назад</Link>
-      </div>
+      <Link to="/admin" className="btn-link">
+        Назад
+      </Link>
       {error && <div style={{ color: "red" }}>{error}</div>}
       <input
         value={name}
         onChange={(e) => setName(e.target.value)}
-        placeholder="Specialization name"
+        placeholder="Назва спеціалізації"
       />
       <button className="btn" onClick={handleAdd}>
         Додати
